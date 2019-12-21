@@ -17,6 +17,9 @@ class ViewController: UIViewController {
     
     var wordToGuess = ""
     var letterButtons = [UIButton]()
+    var foundLetters = [String]()
+    
+    var wrongGuesses = 0
     
     override func loadView() {
         super.loadView()
@@ -95,6 +98,7 @@ class ViewController: UIViewController {
                 
                 let frame = CGRect(x: column * width, y: height * row, width: width, height: height)
                 button.frame = frame
+                button.addTarget(self, action: #selector(letterButton), for: .touchUpInside)
                 
                 buttonView.addSubview(button)
             }
@@ -116,15 +120,51 @@ class ViewController: UIViewController {
             if let contents = try? String(contentsOfFile: pathToWords).components(separatedBy: "\n").randomElement() {
                 wordToGuess = contents
                 
-                var letters = ""
-                
                 for _ in 0..<wordToGuess.count {
-                    letters += "_ "
+                    foundLetters.append("_ ")
                 }
                 
-                wordToGuessLabel.text = letters
+                wordToGuessLabel.text = foundLetters.joined()
             }
         }
+    }
+    
+    @objc private func letterButton(_ sender: UIButton) {
+        
+        guard let letter = sender.titleLabel?.text else { return }
+        
+        if wordToGuess.contains(letter.lowercased()) {
+            
+            let wordArray = Array(wordToGuess)
+            if let index = wordArray.firstIndex(of: Character(letter.lowercased())) {
+                foundLetters[index] = "\(letter) "
+                wordToGuessLabel.text = foundLetters.joined()
+            }
+            
+        } else {
+            
+            wrongGuesses += 1
+            
+            var x = ""
+            
+            for _ in 0..<wrongGuesses {
+                x += "X "
+            }
+            
+            wrongGuessesTextField.text = x
+            
+            if wrongGuesses == 6 {
+                let ac = UIAlertController(title: "Sorry", message: "You ran out of guesses. Would you like to play again?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "ReLoad", style: .default, handler: reload))
+                present(ac, animated: true)
+            }
+        }
+        
+        sender.isHidden = true
+    }
+    
+    private func reload(action: UIAlertAction) {
+        
     }
 }
 
