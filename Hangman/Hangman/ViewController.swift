@@ -101,6 +101,7 @@ class ViewController: UIViewController {
                 button.addTarget(self, action: #selector(letterButton), for: .touchUpInside)
                 
                 buttonView.addSubview(button)
+                letterButtons.append(button)
             }
         }
     }
@@ -116,14 +117,13 @@ class ViewController: UIViewController {
     private func loadWords() {
         
         if let pathToWords = Bundle.main.path(forResource: "Words", ofType: "txt") {
-            
             if let contents = try? String(contentsOfFile: pathToWords).components(separatedBy: "\n").randomElement() {
+                
                 wordToGuess = contents
                 
                 for _ in 0..<wordToGuess.count {
                     foundLetters.append("_ ")
                 }
-                
                 wordToGuessLabel.text = foundLetters.joined()
             }
         }
@@ -131,20 +131,28 @@ class ViewController: UIViewController {
     
     @objc private func letterButton(_ sender: UIButton) {
         
-        guard let letter = sender.titleLabel?.text else { return }
+        guard let letterString = sender.titleLabel?.text else { return }
+        let letter = Character(letterString.lowercased())
         
         if wordToGuess.contains(letter.lowercased()) {
-            
-            let wordArray = Array(wordToGuess)
-            if let index = wordArray.firstIndex(of: Character(letter.lowercased())) {
-                foundLetters[index] = "\(letter) "
-                wordToGuessLabel.text = foundLetters.joined()
+            for (index, letterInWord) in wordToGuess.enumerated() {
+                if letter == letterInWord {
+                    foundLetters[index] = String(letter.uppercased())
+                }
             }
             
+            wordToGuessLabel.text = foundLetters.joined()
+
+            if wordToGuess.lowercased() == foundLetters.joined().lowercased() {
+                
+                let ac = UIAlertController(title: "Yay", message: "You won! Congrats!! You would you like to play again?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Play Agin", style: .default, handler: reload))
+                present(ac, animated: true)
+            }
+
         } else {
             
             wrongGuesses += 1
-            
             var x = ""
             
             for _ in 0..<wrongGuesses {
@@ -165,6 +173,18 @@ class ViewController: UIViewController {
     
     private func reload(action: UIAlertAction) {
         
+        for button in letterButtons {
+            button.isHidden = false
+        }
+        
+        wordToGuess = ""
+        wordToGuessLabel.text = ""
+        foundLetters.removeAll()
+        
+        wrongGuesses = 0
+        wrongGuessesTextField.text = ""
+        
+        loadWords()
     }
 }
 
