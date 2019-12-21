@@ -15,11 +15,12 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        if let url = URL(string: "https://www.hackingwithswift.com/samples/petitions-1.json") {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            if let url = URL(string: "https://www.hackingwithswift.com/samples/petitions-1.json") {
 
-            if let data = try? Data(contentsOf: url) {
-                parse(json: data)
+                if let data = try? Data(contentsOf: url) {
+                    self?.parse(json: data)
+                }
             }
         }
     }
@@ -39,13 +40,16 @@ class TableViewController: UITableViewController {
     }
     
     private func parse(json: Data) {
+        
         let decoder = JSONDecoder()
         
         if let parsedJson = try? decoder.decode(Petitions.self, from: json) {
             petitions = parsedJson.results
         }
         
-        tableView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
