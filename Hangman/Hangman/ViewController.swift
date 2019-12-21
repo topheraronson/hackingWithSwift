@@ -104,7 +104,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadWords()
         
+        print(wordToGuess)
     }
     
     private func loadWords() {
@@ -113,10 +115,16 @@ class ViewController: UIViewController {
             
             if let contents = try? String(contentsOfFile: pathToWords).components(separatedBy: "\n").randomElement() {
                 wordToGuess = contents
+                
+                var letters = ""
+                
+                for _ in 0..<wordToGuess.count {
+                    letters += "_ "
+                }
+                
+                wordToGuessLabel.text = letters
             }
         }
     }
-
-
 }
 
