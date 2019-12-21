@@ -13,6 +13,7 @@
 		EC1D810823ADAC10007C725E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC1D810623ADAC10007C725E /* Main.storyboard */; };
 		EC1D810A23ADAC1C007C725E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1D810923ADAC1C007C725E /* Assets.xcassets */; };
 		EC1D810D23ADAC1C007C725E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC1D810B23ADAC1C007C725E /* LaunchScreen.storyboard */; };
+		EC1D811923ADB43B007C725E /* Words.txt in Resources */ = {isa = PBXBuildFile; fileRef = EC1D811823ADB43B007C725E /* Words.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		EC1D810923ADAC1C007C725E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EC1D810C23ADAC1C007C725E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EC1D810E23ADAC1C007C725E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC1D811823ADB43B007C725E /* Words.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Words.txt; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		EC1D80FF23ADAC10007C725E /* Hangman */ = {
 			isa = PBXGroup;
 			children = (
+				EC1D811823ADB43B007C725E /* Words.txt */,
 				EC1D810023ADAC10007C725E /* AppDelegate.swift */,
 				EC1D810223ADAC10007C725E /* SceneDelegate.swift */,
 				EC1D810423ADAC10007C725E /* ViewController.swift */,
@@ -127,6 +130,7 @@
 			files = (
 				EC1D810D23ADAC1C007C725E /* LaunchScreen.storyboard in Resources */,
 				EC1D810A23ADAC1C007C725E /* Assets.xcassets in Resources */,
+				EC1D811923ADB43B007C725E /* Words.txt in Resources */,
 				EC1D810823ADAC10007C725E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,7 +297,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.christopheraronson.Hangman;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -310,7 +314,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.christopheraronson.Hangman;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
